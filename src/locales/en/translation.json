@@ -1,0 +1,25 @@
+{
+    "app":{
+    "title":"I cannot, I've roadtrip",
+    "error":{
+        "404":{
+        "title":"Page 404",
+        "message":"Page not found",
+        "details":"The page you are looking for might have been removed had its name changed or is temporarily unavailable."
+        }
+    },
+    "action":{"continueReading":"Continue Reading"}
+    },
+    "connexion":{
+    "title":"Connection",
+    "login":{"title":"Login","submit":"Login"},
+    "form":{"email":"Email","password":"Password"},
+    "forgotten_password":"Forgot password ?",
+    "need_account":"Need an account ? Sign up!"
+    },
+    "sidebar":{
+    "title":"Bikers couple on the road",
+    "description":"We publish our roadtrips and some nice photos too"
+    },
+    "main":{"page":{"next":"Next page","previous":"Previous page"}}
+  }

@@ -1,0 +1,1 @@
+export const articlesSelector = ({articles}) => articles;

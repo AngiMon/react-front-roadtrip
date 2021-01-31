@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import {ArticleComponent} from '../Article'
+import Articles from '../../containers/Articles'
 
 function Main (props){
     const { t } = useTranslation();
@@ -7,7 +7,7 @@ function Main (props){
     return(
         <div id="main">
             {/* <!-- Post --> */}
-            <ArticleComponent />
+            <Articles />
             {/* <!-- Pagination --> */}
             <ul className="actions pagination">
                 <li><a href="/" className="disabled button large previous">{t("main").page.previous}</a></li>

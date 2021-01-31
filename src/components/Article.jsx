@@ -1,7 +1,4 @@
-//import { statements } from '@babel/template';
-import React from 'react';
-import {connect, useSelector} from 'react-redux';
-import { articlesSelector } from '../store/article/articleSelectors';
+import React, { useEffect } from 'react';
 
 function Article({article}){
     return (
@@ -33,8 +30,12 @@ function Article({article}){
         </article>
     )
 }
-export function ArticleComponent(){
-    const articles = useSelector(articlesSelector)
+export function ArticleComponent({articles, ...state}){
+    useEffect(() => {
+        state.actions.fetchArticles()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    
     return (
         <div>
             {articles.map(article => <Article article={article} key={article.id} />)}
@@ -42,15 +43,3 @@ export function ArticleComponent(){
     )
     
 }
-
-//'connect' retrieves data from store
-//'state' is an object declared in store/index.js
-//'article' is ArticleComponent parameter
-/**export const ArticleStore = connect(
-    (state) => ({
-        articles: articleSelector(state)
-    }),
-    (dispatch) => ({
-
-    })
-)(ArticleComponent);*/

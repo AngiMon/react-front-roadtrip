@@ -1,11 +1,12 @@
 
+import '../../assets/login.css'
 
-function Login({route}) {
+function Login() {
     
     return(
-        <div>
+        <section id="login-form">
             Login works
-        </div>
+        </section>
     )
 }
 

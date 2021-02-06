@@ -1,5 +1,6 @@
 import * as types from '../constants/articleActionType';
 import * as APIConfig from '../constants/APIConfig';
+import env from "react-dotenv";
 
 //GET
 export const requestArticles = () => ({
@@ -23,7 +24,7 @@ export const fetchArticles = () => {
         let token = await APIConfig.API_TOKEN.then(data => data.token);
 
         return fetch(
-			`${APIConfig.API_URI}/post/all`,
+			`${env.API_URI}/post/all`,
             {
                 method: 'GET',
                 headers: {'Authorization': token}

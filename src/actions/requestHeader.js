@@ -1,8 +1,8 @@
-import * as APIConfig from '../constants/APIConfig';
+import env from "react-dotenv";
 
 export const requestHeader = () => {
     return fetch(
-        `${APIConfig.API_URI}/auth/token-delivery`,
+        `${env.API_URI}/auth/token-delivery`,
         {
             method: 'POST',
             headers: {'Content-Type':'application/json'},

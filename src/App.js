@@ -1,9 +1,13 @@
-
-import Header from './components/base/Header';
-import Main from './components/base/Main';
-import SideMenu from './components/base/SideMenu'
-import SideBar from './components/base/SideBar';
 import useScript from './hooks/useScript';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Login from './components/pages/Login';
+import Home from './components/pages/Home';
+import NoMatch from './components/pages/errors/NoMatch';
 
 function App() {
   //external files loading
@@ -14,12 +18,19 @@ function App() {
   useScript('/lib/main.js');
 
   return (
-    <div id="wrapper">
-      <Header/>
-      <SideMenu/>
-      <Main/>
-      <SideBar/>
-    </div>
+    <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
+    </Router>
   );
 }
 

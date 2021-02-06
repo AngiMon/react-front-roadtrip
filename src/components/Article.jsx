@@ -1,22 +1,32 @@
 import React, { useEffect } from 'react';
 
 function Article({article}){
+    var date = new Date(article.createdAt);
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    date = date.toLocaleDateString('fr-FR', options);
+
     return (
         <article className="post">
             <header>
                 <div className="title">
                     <h2><a href="single.html">{article.title}</a></h2>
-                    <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
+                    {/* <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p> */}
                 </div>
                 <div className="meta">
-                    <time className="published" dateTime="2015-10-22">October 22, 2015</time>
-                    <a href="/" className="author"><span className="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>
+                    <time className="published" dateTime={article.createdAt}>
+                        {date}
+                    </time>
+                    <a href="toto" className="author">
+                        <span className="name">
+                            {article.User.username}
+                        </span>
+                        <img src="images/avatar.jpg" alt="" />
+                    </a>
                 </div>
             </header>
-            <a href="single.html" className="image featured"><img src="images/pic03.jpg" alt="" /></a>
-            <p>
-                {article.content}    
-            </p>
+            {/* <a href="single.html" className="image featured"><img src="images/pic03.jpg" alt="" /></a> */}
+            <p dangerouslySetInnerHTML={{__html: article.content}}></p>
             <footer>
                 <ul className="actions">
                     <li><a href="single.html" className="button large">Continue Reading</a></li>

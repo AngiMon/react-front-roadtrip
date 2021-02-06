@@ -5,7 +5,7 @@ function Header(){
     return (
       <header id="header">
         <h1>
-          <a href="index.html">
+          <a href="/">
             { t("app").title } 
           </a>
         </h1>

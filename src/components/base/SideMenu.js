@@ -1,4 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import {
+    Link
+  } from "react-router-dom";
 
 function SideMenu (){
     const { t } = useTranslation();
@@ -16,9 +19,9 @@ function SideMenu (){
             <section>
                 <ul className="actions stacked">
                     <li>
-                        <a href="/" className="button large fit">
+                        <Link to="/login" className="button large fit">
                             {t('navbar').login}
-                        </a>
+                        </Link>                            
                     </li>
                 </ul>
             </section>

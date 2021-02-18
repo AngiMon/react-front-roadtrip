@@ -1,10 +1,11 @@
-#login-form{
-    background-color: black;
+#login-page{
     position: absolute; margin: auto; 
-    top: 0; 
+    top: 20%; 
     right: 0; 
-    bottom: 0; 
     left: 0; 
     width: 25%; 
     height: fit-content;
+}
+#login-page label{
+    margin: 10px;
 }

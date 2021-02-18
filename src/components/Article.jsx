@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 function Article({article}){
     var date = new Date(article.createdAt);
@@ -40,7 +40,7 @@ function Article({article}){
         </article>
     )
 }
-export function ArticleComponent({articles, ...state}){
+const ArticleComponent = ({articles, ...state}) => {
     useEffect(() => {
         state.actions.fetchArticles()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,8 +48,10 @@ export function ArticleComponent({articles, ...state}){
     
     return (
         <div>
-            {articles.map(article => <Article article={article} key={article.id} />)}
+            { articles.map(article => <Article article={article} key={article.id} />) }
         </div>
     )
     
 }
+
+export default ArticleComponent;

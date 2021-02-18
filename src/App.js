@@ -1,5 +1,4 @@
 import useScript from './hooks/useScript';
-import React from "react";
 import {
   BrowserRouter as Router,
   Switch,

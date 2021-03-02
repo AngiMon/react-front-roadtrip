@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import Articles from '../../containers/Articles'
+import Articles from '../../Redux/containers/Articles'
 
 function Main (props){
     const { t } = useTranslation();

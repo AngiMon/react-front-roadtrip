@@ -1,0 +1,48 @@
+body::-webkit-scrollbar {
+    width: 10px;
+}
+body::-webkit-scrollbar-track {
+box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+body::-webkit-scrollbar-thumb {
+background-color: #2d3235;
+}
+#roadtrip_dashboard{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+}
+    #roadtrip_dashboard h1{
+        font-family: 'Acme', sans-serif;
+        font-size: 1.2em;
+    }
+#roadtrip_dashboard hr{
+    border-bottom: solid 1px rgb(255 255 255 / 30%);
+}
+#roadtrip_dashboard a{
+    text-decoration: none !important;
+    border-bottom: 0;
+}
+#roadtrip_dashboard a:hover{
+    color: #fff !important;
+}
+#roadtrip_dashboard ul, #roadtrip_dashboard p{
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+}
+#roadtrip_dashboard__sidebar{
+    background-color: #b8152e;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    color: #fff;
+}
+    .roadtrip_dashboard__sidebar__collapse{
+        color: #fff;
+        background-color: #2d3235 !important;
+    }
+.roadtrip_dashboard__topbar{
+    background-color: #2d3235;
+    color: #fff;
+    border-bottom: 1px solid white;
+}

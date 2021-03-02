@@ -6,10 +6,14 @@ import './i18n';
 import { Provider } from 'react-redux'
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers/index'
+import rootReducer from './Redux/reducers/index'
+// eslint-disable-next-line 
+import Jquery from 'jquery'
 
 //styles
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
+
 import './assets/index.css';
 import './App.css';
 

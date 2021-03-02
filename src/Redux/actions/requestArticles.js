@@ -1,10 +1,10 @@
 import * as types from '../constants/articleActionType';
-import * as APIConfig from '../constants/APIConfig';
+import {requestHeader} from '../actions/requestHeader'
 import env from "react-dotenv";
 
 //GET
-export const requestArticles = () => ({
-    type: types.REQUEST_ARTICLES,
+export const requestArticlesLoad = () => ({
+    type: types.REQUEST_ARTICLES_LOAD,
     loading: true
 })
 export const requestArticlesSuccess = (articles) => ({
@@ -19,31 +19,35 @@ export const requestArticlesError = (article) => ({
 /* thunk */
 export const fetchArticles = () => {
     return async (dispatch) => {
-		dispatch(requestArticles())
+		dispatch(requestArticlesLoad())
         
-        let token = await APIConfig.API_TOKEN.then(data => data.token);
+        let res = await requestHeader();
+		if(!res) return; 
+		let data =  await res.json();
+		if(!data) return; 
+		const {token} = data
 
-        return fetch(
+		return fetch(
 			`${env.API_URI}/post/all`,
             {
                 method: 'GET',
                 headers: {'Authorization': token}
             }
 		)
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error('Error - 404 Not Found')
-				}
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('Error - 404 Not Found')
+			}
 
-				return response.json()
-			})
-			.then((articles) => {
-				dispatch(requestArticlesSuccess(articles))
-			})
-			.catch((error) => {
-				console.log(error)
-				dispatch(requestArticlesError(error))
-			})
+			return response.json()
+		})
+		.then((articles) => {
+			dispatch(requestArticlesSuccess(articles))
+		})
+		.catch((error) => {
+			console.log(error)
+			dispatch(requestArticlesError(error))
+		})
 	}
 }
 

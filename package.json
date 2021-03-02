@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^12.6.0",
     "bootstrap": "^4.6.0",
     "i18next": "^19.8.4",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.0",
     "react-dom": "^17.0.1",
@@ -49,7 +51,9 @@
   },
   "react-dotenv": {
     "whitelist": [
-      "API_URI"
+      "API_URI",
+      "ADMIN_EMAIL",
+      "ADMIN_PASSWORD"
     ]
   },
   "devDependencies": {

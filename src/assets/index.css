@@ -163,7 +163,7 @@ input, select, textarea {
 
 		}
 
-	#wrapper a {
+	 a {
 		-moz-transition: color 0.2s ease, border-bottom-color 0.2s ease;
 		-webkit-transition: color 0.2s ease, border-bottom-color 0.2s ease;
 		-ms-transition: color 0.2s ease, border-bottom-color 0.2s ease;
@@ -173,14 +173,14 @@ input, select, textarea {
 		text-decoration: none;
 	}
 
-		#wrapper a:before {
+		 a:before {
 			-moz-transition: color 0.2s ease;
 			-webkit-transition: color 0.2s ease;
 			-ms-transition: color 0.2s ease;
 			transition: color 0.2s ease;
 		}
 
-		#wrapper a:hover {
+		a:hover {
 			border-bottom-color: transparent;
 			color: #2ebaae !important;
 		}
@@ -1858,7 +1858,7 @@ input, select, textarea {
 	#wrapper input[type="reset"],
 	#wrapper input[type="button"],
 	#wrapper button,
-	#wrapper .button {
+	.button {
 		-moz-appearance: none;
 		-webkit-appearance: none;
 		-ms-appearance: none;
@@ -3107,10 +3107,6 @@ input, select, textarea {
 			}
 
 /* Header */
-
-	body {
-		padding-top: 3.5em;
-	}
 
 	#header {
 		display: -moz-flex;

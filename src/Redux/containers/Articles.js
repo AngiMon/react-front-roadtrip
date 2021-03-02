@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ArticleComponent from '../components/Article'
+import ArticleComponent from '../../components/Article'
 import { getArticles } from '../selectors/articles'
 
 import { bindActionCreators } from 'redux'

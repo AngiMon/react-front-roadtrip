@@ -12,7 +12,6 @@ background-color: #2d3235;
     font-size: 1.2em;
 }
     #roadtrip_dashboard h1{
-        font-family: 'Acme', sans-serif;
         font-size: 1.2em;
     }
 #roadtrip_dashboard hr{
@@ -31,7 +30,7 @@ background-color: #2d3235;
     list-style-type: none;
 }
 #roadtrip_dashboard__sidebar{
-    background-color: #b8152e;
+    /* background-color: #b8152e; */
     top: 0;
     bottom: 0;
     height: 100vh;
@@ -39,7 +38,7 @@ background-color: #2d3235;
 }
     .roadtrip_dashboard__sidebar__collapse{
         color: #fff;
-        background-color: #2d3235 !important;
+        background-color: #2d3235c2 !important;
     }
 .roadtrip_dashboard__topbar{
     background-color: #2d3235;

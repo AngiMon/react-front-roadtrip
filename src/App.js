@@ -43,8 +43,14 @@ function App() {
           <Route exact path="/login">
             { loggedIn ? <Redirect to="admin/dashboard" /> : <Login />}
           </Route>
-          <Route path="/admin/dashboard">
+          <Route path="/admin/">
             <Dashboard />
+          </Route>
+          <Route path="/admin/article/new">
+            
+          </Route>
+          <Route exact path="/admin/article/list">
+            
           </Route>
           <Route path="*">
             <NoMatch />

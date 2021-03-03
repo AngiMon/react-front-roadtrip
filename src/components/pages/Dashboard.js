@@ -14,12 +14,12 @@ const Dashboard = () => {
     return (
         <div id="roadtrip_dashboard" style={{ margin: 0}}>
             <div className="roadtrip_dashboard__topbar py-3 px-3">
-                <p className="row m-0">
+                <div className="row m-0">
                     <h1 className="col-11">Je peux pas, j'ai roadtrip</h1>
                     <span className="float-right">
                         Angi Mon
                     </span>
-                </p>
+                </div>
             </div>
             <div className="row m-0">
                 <Sidebar />

@@ -1,6 +1,5 @@
 import * as types from '../constants/articleActionType';
 import {requestHeader} from '../actions/requestHeader'
-import env from "react-dotenv";
 
 //GET
 export const requestArticlesLoad = () => ({
@@ -28,7 +27,7 @@ export const fetchArticles = () => {
 		const {token} = data
 
 		return fetch(
-			`${env.API_URI}/post/all`,
+			`${process.env.REACT_APP_API_URI}/post/all`,
             {
                 method: 'GET',
                 headers: {'Authorization': token}

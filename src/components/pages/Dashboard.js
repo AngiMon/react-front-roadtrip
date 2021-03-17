@@ -3,6 +3,8 @@ import useCookie from '../../hooks/useCookie'
 import { useHistory } from "react-router-dom";
 import "../../assets/dashboard.css";
 import Sidebar from '../admin/Sidebar';
+import Home from '../pages/Home';
+import Login from '../pages/Login';
 import {ArticlesList, NewArticleContainer} from '../../Redux/containers/ArticlesList';
 import {
     BrowserRouter as Router,
@@ -20,7 +22,7 @@ const Dashboard = () => {
         <div id="roadtrip_dashboard" style={{ margin: 0}}>
             <div className="roadtrip_dashboard__topbar py-3 px-3">
                 <div className="row m-0">
-                    <h1 className="col-11">Je peux pas, j'ai roadtrip</h1>
+                    <a className="col-11" href="/">Je peux pas, j'ai roadtrip</a>
                     <span className="float-right">
                         Angi Mon
                     </span>
@@ -31,6 +33,13 @@ const Dashboard = () => {
                 <div className="col-10 py-3 px-3">
                     <Router>
                         <Switch>
+                            <Route exact path="/">
+                                <Home />
+                            </Route>
+                            <Route exact path="/login">
+                                <p className="alert-danger text-center"> Votre session a expiré </p>
+                                <Login />
+                            </Route>
                             <Route path="/admin/article/list">
                                 <ArticlesList />
                             </Route>

@@ -40,15 +40,19 @@ function Article({article}){
         </article>
     )
 }
-const ArticleComponent = ({articles, ...state}) => {
+const ArticleComponent = ({data, ...state}) => {
     useEffect(() => {
         state.actions.fetchArticles()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const {articles, status} = data;
     
     return (
         <div>
-            { articles.map(article => <Article article={article} key={article.id} />) }
+            { status === 200 &&
+                articles.map(article => <Article article={article} key={article.id} />) 
+            }
         </div>
     )
     

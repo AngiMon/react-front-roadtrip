@@ -1,7 +1,10 @@
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator'
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import useCookie from '../../hooks/useCookie';
+import { useHistory } from "react-router-dom";
+
 
 const ArticlesList = ({articles}) => {
     const columns = [{
@@ -35,11 +38,16 @@ const ArticlesList = ({articles}) => {
     )
 }
 
-const ArticlesListContainer = ({articles, ...state}) => {
+const ArticlesListContainer = ({ data, ...state}) => {
+    const history = useHistory();
+    const token = useCookie('access_token_admin')[0];
     useEffect(() => {
-        state.actions.fetchArticles()
+        state.actions.fetchArticlesAsAdmin(token);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    const {status, articles} = data
+
+    if(status === 409) history.push('/login');
 
     return (
         <ArticlesList articles={articles} />

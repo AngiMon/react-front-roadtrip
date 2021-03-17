@@ -48,3 +48,6 @@ background-color: #2d3235;
     #roadtrip_dashboard #pageDropDown{
         display: none;
     }
+    #roadtrip_dashboard .ck-editor__editable {
+        min-height: 200px;
+      }

@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => ({
 	actions: bindActionCreators(ArticlesAction, dispatch),
 })
 const mapStateToProps = (state) => {
-	return {articles: getArticles(state)}
+	return {data: getArticles(state)}
 }
 
 const Articles = connect(

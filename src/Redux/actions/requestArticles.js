@@ -9,10 +9,12 @@ export const requestArticlesLoad = () => ({
 export const requestArticlesSuccess = (articles) => ({
     type: types.REQUEST_ARTICLES_SUCCESS,
     articles: articles,
+	status: 200,
     loading: false
 })
-export const requestArticlesError = (error) => ({
+export const requestArticlesError = (status) => ({
     type: types.REQUEST_ARTICLES_ERROR,
+	status: status,
     loading: false,
 })
 /* thunk */
@@ -49,6 +51,37 @@ export const fetchArticles = () => {
 		})
 	}
 }
+export const fetchArticlesAsAdmin = (token) => {
+    return async (dispatch) => {
+		dispatch(requestArticlesLoad())
+
+		return fetch(
+			`${process.env.REACT_APP_API_URI}/dashboard/post/all`,
+            {
+                method: 'GET',
+                headers: {'Authorization': token}
+            }
+		)
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('Error - 404 Not Found')
+			}
+
+			return response.json()
+		})
+		.then(({status}, articles) => {
+			if(status === 409) {
+				dispatch(requestArticlesError(status))
+			}else{
+				dispatch(requestArticlesSuccess(articles))
+			}
+		})
+		.catch((error) => {
+			console.log(error)
+			dispatch(requestArticlesError(error))
+		})
+	}
+}
 
 //ADD
 export const requestAddArticleLoad = () => ({
@@ -59,14 +92,16 @@ export const requestAddArticleSuccess = (article) => ({
     type: types.REQUEST_ADD_ARTICLE_SUCCESS,
 	article: article
 })
-export const requestAddArticleError = (err) => ({
+export const requestAddArticleError = (status) => ({
     type: types.REQUEST_ADD_ARTICLE_ERROR,
+	status: status,
+    loading: false,
 })
 /* thunk */
 export const addArticle = (title, content, location, token) => {
     return async (dispatch) => {
 		//dispatch(requestAddArticleLoad())
-console.log(title, content, location);
+
 		return fetch(
 			`${process.env.REACT_APP_API_URI}/post/add`, {
                 method: 'POST',
@@ -86,8 +121,12 @@ console.log(title, content, location);
 
 			return response.json()
 		})
-		.then((articles) => {
-			dispatch(requestAddArticleSuccess(articles))
+		.then(({status}, articles) => {
+			if(status === 409) {
+				dispatch(requestAddArticleError(status))
+			}else{
+				dispatch(requestAddArticleSuccess(articles))
+			}
 		})
 		.catch((error) => {
 			console.log(error)

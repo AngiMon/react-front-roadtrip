@@ -2,3 +2,4 @@ node_modules
 .eslintcache
 public/env.js
 .vscode
+.env.local

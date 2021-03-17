@@ -11,7 +11,7 @@ export const requestArticlesSuccess = (articles) => ({
     articles: articles,
     loading: false
 })
-export const requestArticlesError = (article) => ({
+export const requestArticlesError = (error) => ({
     type: types.REQUEST_ARTICLES_ERROR,
     loading: false,
 })
@@ -51,7 +51,48 @@ export const fetchArticles = () => {
 }
 
 //ADD
-export const requestAddArticle = (article) => ({
-    type: types.REQUEST_ADD_ARTICLE,
-    payload: {...article }
+export const requestAddArticleLoad = () => ({
+    type: types.REQUEST_ADD_ARTICLE_LOAD,
+    
 })
+export const requestAddArticleSuccess = (article) => ({
+    type: types.REQUEST_ADD_ARTICLE_SUCCESS,
+	article: article
+})
+export const requestAddArticleError = (err) => ({
+    type: types.REQUEST_ADD_ARTICLE_ERROR,
+})
+/* thunk */
+export const addArticle = (title, content, location, token) => {
+    return async (dispatch) => {
+		//dispatch(requestAddArticleLoad())
+console.log(title, content, location);
+		return fetch(
+			`${process.env.REACT_APP_API_URI}/post/add`, {
+                method: 'POST',
+                headers: {'Authorization': token, 'Content-Type': 'application/json', 'Accept': 'application/json'},
+				body: JSON.stringify({
+					title: title,
+					content: content,
+					location: location,
+					published: true
+				})
+            }
+		)
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('Error - 404 Not Found')
+			}
+
+			return response.json()
+		})
+		.then((articles) => {
+			dispatch(requestAddArticleSuccess(articles))
+		})
+		.catch((error) => {
+			console.log(error)
+			dispatch(requestAddArticleError(error))
+		})
+	}
+}
+

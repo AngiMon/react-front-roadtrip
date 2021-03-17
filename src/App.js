@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
-import Dashboard from './components/pages/Dashboard'
+import Dashboard from './components/pages/Dashboard';
 import NoMatch from './components/pages/errors/NoMatch';
 import { requestHeader } from "./Redux/actions/requestHeader";
 
@@ -45,12 +45,6 @@ function App() {
           </Route>
           <Route path="/admin/">
             <Dashboard />
-          </Route>
-          <Route path="/admin/article/new">
-            
-          </Route>
-          <Route exact path="/admin/article/list">
-            
           </Route>
           <Route path="*">
             <NoMatch />

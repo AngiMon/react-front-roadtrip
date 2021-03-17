@@ -1,9 +1,14 @@
 import React from 'react'
 import useCookie from '../../hooks/useCookie'
 import { useHistory } from "react-router-dom";
-import "../../assets/dashboard.css"
-import Sidebar from '../admin/Sidebar'
-
+import "../../assets/dashboard.css";
+import Sidebar from '../admin/Sidebar';
+import {ArticlesList, NewArticleContainer} from '../../Redux/containers/ArticlesList';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+  } from "react-router-dom";
 
 const Dashboard = () => {
     // eslint-disable-next-line
@@ -24,16 +29,18 @@ const Dashboard = () => {
             <div className="row m-0">
                 <Sidebar />
                 <div className="col-10 py-3 px-3">
-                    <div className="card">
-                        <h5 className="card-header">Featured</h5>
-                        <div className="card-body">
-                            <h5 className="card-title">Special title treatment</h5>
-                            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        </div>
-                    </div>
+                    <Router>
+                        <Switch>
+                            <Route path="/admin/article/list">
+                                <ArticlesList />
+                            </Route>
+                            <Route path="/admin/article/new">
+                                <NewArticleContainer />
+                            </Route>
+                        </Switch>
+                    </Router>
                 </div>
             </div>
-           
         </div>
     )
 }

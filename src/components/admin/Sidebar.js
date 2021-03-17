@@ -15,6 +15,7 @@ const Sidebar = () => {
     ]
     const changeTheme = (e, theme) => {
         e.preventDefault();
+        
         switch(theme){
             case 'Suzuki':
                 setTheme(themeSuzuki);
@@ -23,10 +24,14 @@ const Sidebar = () => {
                 setTheme(themeHonda)
                 break;
             case 'Harley':
-            setTheme(themeHarley)
-            break;
+                setTheme(themeHarley)
+                break;
+            default:
+                setTheme(themeSuzuki);
+                break
         }
     }
+
     return (
         <div className="col-2 px-3 pt-3" id="roadtrip_dashboard__sidebar" style={theme}>
             <h2 className="mt-3">
@@ -61,14 +66,12 @@ const themeSuzuki={
     color:"rgb(17 17 16)"
 }
 const themeHonda ={
-    // backgroundColor: "#004387"
     backgroundImage: "url('../../images/cbr.jpg')",
     backgroundSize: "cover",
     backgroundPositionX: "354px"
 }
 
 const themeHarley ={
-    // backgroundColor: "#00b600"
     backgroundImage: "url('../../images/harley.jpg')",
     backgroundSize: "cover",
     backgroundPositionX: "-423px"

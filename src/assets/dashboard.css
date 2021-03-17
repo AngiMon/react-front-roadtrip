@@ -45,3 +45,6 @@ background-color: #2d3235;
     color: #fff;
     border-bottom: 1px solid white;
 }
+    #roadtrip_dashboard #pageDropDown{
+        display: none;
+    }

@@ -3,7 +3,6 @@ headers.append('Content-Type', 'application/json');
 headers.append('Accept', 'application/json');
 
 export const requestHeader = async() => {
-console.log(process.env);
     return fetch(
         `${process.env.REACT_APP_API_URI}/auth/token-delivery`, {
             method: 'POST',

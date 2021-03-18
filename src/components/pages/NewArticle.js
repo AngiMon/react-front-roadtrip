@@ -11,6 +11,8 @@ const NewArticle = ({...state}) =>{
     const [content, setContent] = useState('');
     const [location, setLocation] = useState('');
     const token = useCookie('access_token_admin')[0];
+    const uploadUrl = process.env.REACT_APP_API_URI + '/ck/uploads'; //TODO put in .env
+    
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
     }
@@ -40,22 +42,32 @@ const NewArticle = ({...state}) =>{
                     placeholder="ex. Voyage au centre de la Terre"
                     onChange={(e) => handleTitleChange(e)} />
                 </div>
-                <CKEditor
-                    editor={ ClassicEditor }
-                    config={ {language:'fr'} }
-                    data="<p>Hello from CKEditor 5!</p>"
-                    onReady={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    onChange={ ( event, editor ) => handleContentChange(event, editor)}
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
-                />
+                <div className="form-group">
+                    <label className="form-label">Contenu</label>
+                    <CKEditor
+                        editor={ ClassicEditor }
+                        config={
+                            {
+                                language:'fr',
+                                ckfinder:{
+                                    uploadUrl: uploadUrl
+                                }
+                            } 
+                        }
+                        data="<p>Hello from CKEditor 5!</p>"
+                        onReady={ editor => {
+                            // You can store the "editor" and use when it is needed.
+                            console.log( 'Editor is ready to use!', editor );
+                        } }
+                        onChange={ ( event, editor ) => handleContentChange(event, editor)}
+                        onBlur={ ( event, editor ) => {
+                            console.log( 'Blur.', editor );
+                        } }
+                        onFocus={ ( event, editor ) => {
+                            console.log( 'Focus.', editor );
+                        } }
+                    />
+                </div>
                 <div className="form-group mt-3">
                     <label className="form-label">Localisation</label>
                     <input 
@@ -65,7 +77,7 @@ const NewArticle = ({...state}) =>{
                     placeholder="ex. Les Gorges du Verdon"
                     onChange={(e) => handleLocationChange(e)} />
                 </div>
-                <button onClick={() => Submit()}>Valider</button>
+                <button className="btn btn-success" onClick={() => Submit()}>Valider</button>
             </div>
         </div>
     )

@@ -69,7 +69,7 @@ export const fetchArticlesAsAdmin = (token) => {
 
 			return response.json()
 		})
-		.then(({status}, articles) => {
+		.then(({status, articles}) => {
 			if(status === 409) {
 				dispatch(requestArticlesError(status))
 			}else{

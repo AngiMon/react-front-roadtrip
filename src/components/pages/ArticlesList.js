@@ -50,7 +50,11 @@ const ArticlesListContainer = ({ data, ...state}) => {
     if(status === 409) history.push('/login');
 
     return (
-        <ArticlesList articles={articles} />
+        <>
+            { articles &&
+                <ArticlesList articles={articles} />
+            }
+        </>
     )
 }
 

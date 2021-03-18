@@ -82,6 +82,53 @@ export const fetchArticlesAsAdmin = (token) => {
 		})
 	}
 }
+//GET ONE
+export const requestArticleLoad = () => ({
+    type: types.REQUEST_ARTICLE_LOAD,
+    loading: true
+})
+export const requestArticleSuccess = (article) => ({
+    type: types.REQUEST_ARTICLE_SUCCESS,
+    article: article,
+	status: 200,
+    loading: false
+})
+export const requestArticleError = (status) => ({
+    type: types.REQUEST_ARTICLE_ERROR,
+	status: status,
+    loading: false,
+})
+export const fetchArticle = (token, id) => {
+	return async (dispatch) => {
+		//dispatch(requestArticlesLoad())
+
+		return fetch(
+			`${process.env.REACT_APP_API_URI}/dashboard/post/${id}`,
+            {
+                method: 'GET',
+                headers: {'Authorization': token}
+            }
+		)
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('Error - 404 Not Found')
+			}
+
+			return response.json()
+		})
+		.then(({status, article}) => {
+			if(status === 409) {
+				//dispatch(requestArticleError(status))
+			}else{
+				dispatch(requestArticleSuccess(article))
+			}
+		})
+		.catch((error) => {
+			console.log(error)
+			dispatch(requestArticlesError(error))
+		})
+	}
+}
 
 //ADD
 export const requestAddArticleLoad = () => ({
@@ -152,7 +199,6 @@ export const requestRemoveArticleError = (status) => ({
 })
 //thunk
 export const removeArticles = (token, articleId) => {
-	console.log(articleId);
     return async (dispatch) => {
 		//dispatch(requestRemoveArticleLoad())
 

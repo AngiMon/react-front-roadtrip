@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 function Article({article}){
     var date = new Date(article.createdAt);
@@ -41,10 +41,12 @@ function Article({article}){
     )
 }
 const ArticleComponent = ({data, ...state}) => {
+    const store = useRef();
+    store.current = state;
+
     useEffect(() => {
-        state.actions.fetchArticles()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        store.current.actions.fetchArticles()
+    }, [store]);
 
     const {articles, status} = data;
     

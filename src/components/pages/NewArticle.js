@@ -1,25 +1,42 @@
-import {useState} from "react";
+import {useState, useEffect, useRef} from "react";
 import useCookie from "../../hooks/useCookie"
 import { useHistory } from "react-router-dom";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
-import TextInput from '../tools/TextInput'
+import TextInput from '../tools/TextInput';
+import { useParams } from "react-router";
 
-const NewArticle = ({...state}) =>{
-    const history = useHistory();
+const NewArticle =  ({data, ...state}) =>{
+    const dataBinding = useRef();
+    const { id } = useParams();
+    const token = useCookie('access_token_admin')[0];
+    dataBinding.current = {state: state, id: id, token: token};
+
+    const {article} = data;
+
+    useEffect(() => {
+        if(dataBinding.current.id !== undefined){
+            dataBinding.current.state.actions.fetchArticle(dataBinding.current.token, dataBinding.current.id);
+        }
+    }, [dataBinding]);
 
     const [hasSubmited, setHasSubmited] = useState(false);
-    
-    const [title, setTitle] = useState(null);
-    const [errorTitle, setErrorTitle] = useState(false);
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [location, setLocation] = useState('');
 
-    const [content, setContent] = useState(null);
-    
-    const [location, setLocation] = useState(null);
+    if(article !== undefined && title.length === 0 && content.length === 0 && location.length === 0){
+        setTitle(article.title);
+        setContent(article.content);
+        setLocation(article.location);
+    }
+
+    //error managment
+    const [errorTitle, setErrorTitle] = useState(false);
     const [errorLocation, setErrorLocation] = useState(false);
 
-    const token = useCookie('access_token_admin')[0];
+    const history = useHistory();
     const uploadUrl = process.env.REACT_APP_API_URI + '/ck/uploads'; //TODO put in .env
     
     const handleTitleChange = (e) => {
@@ -38,11 +55,10 @@ const NewArticle = ({...state}) =>{
     }
     const Submit = () => {
         setHasSubmited(true);
-
         fieldVerify(title, errorTitle, setErrorTitle, "Veuillez donner un titre à votre article", true);
         fieldVerify(location, errorLocation, setErrorLocation, "Veuillez renseigner le lieu", true);
         
-        if(!title || !content || !location || title.length === 0 || content.length === 0 || location.length === 0) return;
+        if(title.length === 0 || content.length === 0 || location.length === 0) return;
 
         state.actions.addArticle(title, content, location, token);
         history.push("/admin/article/list");
@@ -67,6 +83,7 @@ const NewArticle = ({...state}) =>{
                 label="Titre"
                 param="title"
                 handleValue={handleTitleChange}
+                value={title}
                 errorMessage={errorTitle} />
 
                 <div className="form-group">
@@ -81,7 +98,7 @@ const NewArticle = ({...state}) =>{
                                 }
                             } 
                         }
-                        data="<p>Hello from CKEditor 5!</p>"
+                        data={content}
                         onReady={ editor => {
                             // You can store the "editor" and use when it is needed.
                         } }
@@ -98,6 +115,7 @@ const NewArticle = ({...state}) =>{
                 label="Localisation"
                 param="location"
                 handleValue={handleLocationChange}
+                value={location}
                 errorMessage={errorLocation} />
 
                 <button className="btn btn-success" onClick={() => Submit()}>Valider</button>

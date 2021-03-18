@@ -5,7 +5,8 @@ import "../../assets/dashboard.css";
 import Sidebar from '../admin/Sidebar';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
-import {ArticlesList, NewArticleContainer} from '../../Redux/containers/ArticlesList';
+import ArticlesListContainer from '../../Redux/containers/ArticlesList';
+import NewArticleContainer from '../../Redux/containers/newArticleContainer'
 import {
     BrowserRouter as Router,
     Switch,
@@ -41,9 +42,12 @@ const Dashboard = () => {
                                 <Login />
                             </Route>
                             <Route path="/admin/article/list">
-                                <ArticlesList />
+                                <ArticlesListContainer />
                             </Route>
                             <Route path="/admin/article/new">
+                                <NewArticleContainer />
+                            </Route>
+                            <Route path="/admin/article/:id">
                                 <NewArticleContainer />
                             </Route>
                         </Switch>

@@ -42,7 +42,7 @@ const ArticlesList = ({articles}) => {
     )
 }
 
-const ArticlesListContainer = ({ data, ...state}) => {
+const ArticlesListComponent = ({ data, ...state}) => {
     const history = useHistory();
     const token = useCookie('access_token_admin')[0];
     useEffect(() => {
@@ -67,7 +67,7 @@ const ArticlesListContainer = ({ data, ...state}) => {
         article.createdAt = date;
         article.text = <p dangerouslySetInnerHTML={{__html: article.content.slice(0, 100)}}></p>;
         article.actions = <div>
-                <button className="btn btn-warning mr-2"><i className="far fa-edit fa-lg" style={{color:'white'}}></i></button>
+                <a role="button" className="btn btn-warning mr-2" href={"/admin/article/" + id}><i className="far fa-edit fa-lg" style={{color:'white'}}></i></a>
                 <button 
                 className="btn btn-danger" 
                 onClick={ () => handleRemove(id) }
@@ -87,4 +87,4 @@ const ArticlesListContainer = ({ data, ...state}) => {
     )
 }
 
-export default ArticlesListContainer;
+export default ArticlesListComponent;

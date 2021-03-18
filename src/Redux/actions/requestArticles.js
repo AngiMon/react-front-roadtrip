@@ -135,3 +135,48 @@ export const addArticle = (title, content, location, token) => {
 	}
 }
 
+//delete article
+export const requestRemoveArticleLoad = () => ({
+    type: types.REQUEST_REMOVE_ARTICLE_LOAD,
+    
+})
+export const requestRemoveArticleSuccess = (articleId) => ({
+    type: types.REQUEST_REMOVE_ARTICLE_SUCCESS,
+	articleId: articleId,
+	status:200
+})
+export const requestRemoveArticleError = (status) => ({
+    type: types.REQUEST_REMOVE_ARTICLE_ERROR,
+	status: status,
+    loading: false,
+})
+//thunk
+export const removeArticles = (token, articleId) => {
+	console.log(articleId);
+    return async (dispatch) => {
+		//dispatch(requestRemoveArticleLoad())
+
+		return fetch(
+			`${process.env.REACT_APP_API_URI}/post/${articleId}`,
+            {
+                method: 'DELETE',
+                headers: {'Authorization': token}
+            }
+		)
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('Error - 404 Not Found')
+			}
+
+			return response.json()
+		})
+		.then((res) => {
+			dispatch(requestRemoveArticleSuccess(articleId))
+		})
+		.catch((error) => {
+			console.log(error)
+			//dispatch(requestRemoveArticleError(error))
+		})
+	}
+}
+

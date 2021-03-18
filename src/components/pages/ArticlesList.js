@@ -49,6 +49,11 @@ const ArticlesListContainer = ({ data, ...state}) => {
         state.actions.fetchArticlesAsAdmin(token);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    
+    const handleRemove = (articleId) =>{
+        let confirm = window.confirm('Êtes-vous sûr de vouloir supprimer cet article ?');
+        if(confirm) state.actions.removeArticles(token, articleId);
+    }
 
     const {status, articles} = data
 
@@ -57,13 +62,18 @@ const ArticlesListContainer = ({ data, ...state}) => {
     articles.map(article =>{
         var date = new Date(article.createdAt);
         var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var id = article.id
         date = date.toLocaleDateString('fr-FR', options);
-
         article.createdAt = date;
         article.text = <p dangerouslySetInnerHTML={{__html: article.content.slice(0, 100)}}></p>;
         article.actions = <div>
                 <button className="btn btn-warning mr-2"><i className="far fa-edit fa-lg" style={{color:'white'}}></i></button>
-                <button className="btn btn-danger"><i className="fas fa-trash-alt fa-lg"></i></button>
+                <button 
+                className="btn btn-danger" 
+                onClick={ () => handleRemove(id) }
+                >
+                    <i className="fas fa-trash-alt fa-lg"></i>
+                </button>
             </div>
         return article;
     })

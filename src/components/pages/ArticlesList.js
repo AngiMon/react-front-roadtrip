@@ -20,12 +20,16 @@ const ArticlesList = ({articles}) => {
         text: "Titre"
     },
     {
-        dataField: 'content',
+        dataField: 'text',
         text: "Contenu"
     },
     {
         dataField: 'User.username',
         text: "Auteur"
+    },
+    {
+        dataField: 'actions',
+        text: "Actions"
     }];
 
     return (
@@ -45,9 +49,24 @@ const ArticlesListContainer = ({ data, ...state}) => {
         state.actions.fetchArticlesAsAdmin(token);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     const {status, articles} = data
 
     if(status === 409) history.push('/login');
+
+    articles.map(article =>{
+        var date = new Date(article.createdAt);
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        date = date.toLocaleDateString('fr-FR', options);
+
+        article.createdAt = date;
+        article.text = <p dangerouslySetInnerHTML={{__html: article.content.slice(0, 100)}}></p>;
+        article.actions = <div>
+                <button className="btn btn-warning mr-2"><i className="far fa-edit fa-lg" style={{color:'white'}}></i></button>
+                <button className="btn btn-danger"><i className="fas fa-trash-alt fa-lg"></i></button>
+            </div>
+        return article;
+    })
 
     return (
         <>

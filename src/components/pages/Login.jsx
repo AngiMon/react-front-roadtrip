@@ -35,7 +35,7 @@ const Login = () => {
         }
     }
     return(
-        <Form id="login-page">
+        <Form id="login-page" onKeyPress={(event) => event.key === 'Enter' ? Submit() : false }>
             <TextInput label="Adresse email" handleValue={handleValue} param="email" placeholder="Saisissez votre email" />
             <TextInput label="Mot de passe"  handleValue={handleValue} param="password" placeholder="Saisissez votre mot de passe" type="password" />
 

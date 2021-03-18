@@ -10,14 +10,14 @@ function Article({article}){
         <article className="post">
             <header>
                 <div className="title">
-                    <h2><a href="single.html">{article.title}</a></h2>
-                    {/* <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p> */}
+                    <h2><a href="/">{article.title}</a></h2>
+                    <p>{article.location}</p>
                 </div>
                 <div className="meta">
                     <time className="published" dateTime={article.createdAt}>
                         {date}
                     </time>
-                    <a href="toto" className="author">
+                    <a href="/" className="author">
                         <span className="name">
                             {article.User.username}
                         </span>
@@ -31,11 +31,11 @@ function Article({article}){
                 <ul className="actions">
                     <li><a href="single.html" className="button large">Continue Reading</a></li>
                 </ul>
-                <ul className="stats">
+                {/* <ul className="stats">
                     <li><a href="/">General</a></li>
                     <li><a href="/" className="icon solid fa-heart">28</a></li>
                     <li><a href="/" className="icon solid fa-comment">128</a></li>
-                </ul>
+                </ul> */}
             </footer>
         </article>
     )

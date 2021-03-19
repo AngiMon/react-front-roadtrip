@@ -36,7 +36,12 @@ const ArticlesList = ({articles}) => {
         <div className="card">
             <h5 className="h5 card-header">Liste des articles</h5>
             <div className="card-body">
-                <BootstrapTable keyField='id' data={ articles } columns={ columns } pagination={paginationFactory()} />
+                <BootstrapTable 
+                hover={true}
+                keyField='id' 
+                data={ articles } 
+                columns={ columns } 
+                pagination={paginationFactory()} />
             </div>
         </div>
     )

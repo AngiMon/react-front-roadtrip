@@ -31,7 +31,7 @@ const Dashboard = () => {
             </div>
             <div className="row m-0">
                 <Sidebar />
-                <div className="col-10 py-3 px-3">
+                <div className="roadtrip_dashboard__content col-10 py-3 px-3">
                     <Router>
                         <Switch>
                             <Route exact path="/">

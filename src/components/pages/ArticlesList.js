@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -45,10 +45,11 @@ const ArticlesList = ({articles}) => {
 const ArticlesListComponent = ({ data, ...state}) => {
     const history = useHistory();
     const token = useCookie('access_token_admin')[0];
+    const dataBinding = useRef();
+    dataBinding.current = {state: state, token: token};
     useEffect(() => {
-        state.actions.fetchArticlesAsAdmin(token);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        dataBinding.current.state.actions.fetchArticlesAsAdmin(dataBinding.current.token);
+    }, [dataBinding]);
     
     const handleRemove = (articleId) =>{
         let confirm = window.confirm('Êtes-vous sûr de vouloir supprimer cet article ?');
@@ -59,25 +60,27 @@ const ArticlesListComponent = ({ data, ...state}) => {
 
     if(status === 409) history.push('/login');
 
-    articles.map(article =>{
-        var date = new Date(article.createdAt);
-        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        var id = article.id
-        date = date.toLocaleDateString('fr-FR', options);
-        article.createdAt = date;
-        article.text = <p dangerouslySetInnerHTML={{__html: article.content.slice(0, 100)}}></p>;
-        article.actions = <div>
-                <a role="button" className="btn btn-warning mr-2" href={"/admin/article/" + id}><i className="far fa-edit fa-lg" style={{color:'white'}}></i></a>
-                <button 
-                className="btn btn-danger" 
-                onClick={ () => handleRemove(id) }
-                >
-                    <i className="fas fa-trash-alt fa-lg"></i>
-                </button>
-            </div>
-        return article;
-    })
-
+    if(articles !== undefined){
+        articles.map(article =>{
+            var date = new Date(article.createdAt);
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var id = article.id
+            date = date.toLocaleDateString('fr-FR', options);
+            article.createdAt = date;
+            article.text = <p dangerouslySetInnerHTML={{__html: article.content.slice(0, 100)}}></p>;
+            article.actions = <div>
+                    <a role="button" className="btn btn-warning mr-2" href={"/admin/article/" + id}><i className="far fa-edit fa-lg" style={{color:'white'}}></i></a>
+                    <button 
+                    className="btn btn-danger" 
+                    onClick={ () => handleRemove(id) }
+                    >
+                        <i className="fas fa-trash-alt fa-lg"></i>
+                    </button>
+                </div>
+            return article;
+        })
+    }
+    
     return (
         <>
             { articles &&

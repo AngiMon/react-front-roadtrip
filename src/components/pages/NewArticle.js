@@ -60,7 +60,11 @@ const NewArticle =  ({data, ...state}) =>{
         
         if(title.length === 0 || content.length === 0 || location.length === 0) return;
 
-        state.actions.addArticle(title, content, location, token);
+        if(article === undefined){
+            state.actions.addArticle(title, content, location, token);
+        }else{
+            state.actions.updateArticle(id, title, content, location, token);
+        }
         history.push("/admin/article/list");
     }
 
@@ -99,14 +103,10 @@ const NewArticle =  ({data, ...state}) =>{
                             } 
                         }
                         data={content}
-                        onReady={ editor => {
-                            // You can store the "editor" and use when it is needed.
-                        } }
+                        onReady={ editor => {} }
                         onChange={ ( event, editor ) => handleContentChange(event, editor)}
-                        onBlur={ ( event, editor ) => {
-                        } }
-                        onFocus={ ( event, editor ) => {
-                        } }
+                        onBlur={ ( event, editor ) => {} }
+                        onFocus={ ( event, editor ) => {} }
                     />
                 </div>
             

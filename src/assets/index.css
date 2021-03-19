@@ -2681,7 +2681,7 @@ input, select, textarea {
 				text-transform: uppercase;
 			}
 
-			.mini-post header #wrapper .author {
+			.mini-post header .author {
 				position: absolute;
 				right: 2em;
 				top: 2em;
@@ -3325,7 +3325,7 @@ input, select, textarea {
 		margin: 0 auto;
 		max-width: 100%;
 		opacity: 1;
-		padding: 4.5em;
+		padding: 8em 4.5em 4.5em;
 		width: 90em;
 	}
 
@@ -3336,7 +3336,7 @@ input, select, textarea {
 		@media screen and (max-width: 1680px) {
 
 			#wrapper {
-				padding: 3em;
+				padding: 6.5em 3em 3em;
 			}
 
 		}
@@ -3352,7 +3352,7 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			#wrapper {
-				padding: 1.5em;
+				padding: 4em 1.5em 1.5em;
 			}
 
 		}
@@ -3419,7 +3419,6 @@ input, select, textarea {
 		#intro .logo:before {
 			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100px' height='100px' viewBox='0 0 100 100' preserveAspectRatio='none' zoomAndPan='disable'%3E%3Cpolygon points='0,0 100,0 100,25 50,0 0,25' style='fill:%23f4f4f4' /%3E%3Cpolygon points='0,100 100,100 100,75 50,100 0,75' style='fill:%23f4f4f4' /%3E%3C/svg%3E");
 			background-position: top left;
-			background-repeat: no-repeat;
 			background-size: 100% 100%;
 			content: '';
 			display: block;

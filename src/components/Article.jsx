@@ -21,12 +21,12 @@ function Article({article}){
                         <span className="name">
                             {article.User.username}
                         </span>
-                        <img src="images/avatar.jpg" alt="" />
+                        <img src="images/logo_angi2.JPG" alt="" />
                     </a>
                 </div>
             </header>
             {/* <a href="single.html" className="image featured"><img src="images/pic03.jpg" alt="" /></a> */}
-            <p dangerouslySetInnerHTML={{__html: article.content}}></p>
+            <div className="ck-content" dangerouslySetInnerHTML={{__html: article.content}}></div>
             <footer>
                 <ul className="actions">
                     <li><a href="single.html" className="button large">Continue Reading</a></li>

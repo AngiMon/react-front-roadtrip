@@ -181,7 +181,55 @@ export const addArticle = (title, content, location, token) => {
 		})
 	}
 }
+//update
+export const requestUpdateArticleLoad = () => ({
+    type: types.REQUEST_UPDATE_ARTICLE_LOAD,
+    
+})
+export const requestUpdateArticleSuccess = (article) => ({
+    type: types.REQUEST_UPDATE_ARTICLE_SUCCESS,
+	article: article
+})
+export const requestUpdateArticleError = (status) => ({
+    type: types.REQUEST_UPDATE_ARTICLE_ERROR,
+	status: status,
+    loading: false,
+})
+/* thunk */
+export const updateArticle = (id, title, content, location, token) => {
+    return async (dispatch) => {
+		//dispatch(requestAddArticleLoad())
 
+		return fetch(
+			`${process.env.REACT_APP_API_URI}/post/${id}`, {
+                method: 'PUT',
+                headers: {'Authorization': token, 'Content-Type': 'application/json', 'Accept': 'application/json'},
+				body: JSON.stringify({
+					title: title,
+					content: content,
+					location: location,
+					published: true
+				})
+            }
+		)
+		.then((response) => {
+			return response.json()
+		})
+		.then(({status, errorMessage}, article) => {
+			if(status === 409) {
+				//dispatch(requestUpdateArticleError(status))
+			}else if(status === 200){
+				//dispatch(requestUpdateArticleSuccess(article))
+			}else{
+				throw new Error(errorMessage);
+			}
+		})
+		.catch((error) => {
+			console.log(error)
+			//dispatch(requestUpdateArticleError(error))
+		})
+	}
+}
 //delete article
 export const requestRemoveArticleLoad = () => ({
     type: types.REQUEST_REMOVE_ARTICLE_LOAD,

@@ -5,6 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '@ckeditor/ckeditor5-build-classic/build/translations/fr';
 import TextInput from '../tools/TextInput';
+import Switcher from '../tools/Switcher';
 import { useParams } from "react-router";
 
 const NewArticle =  ({data, ...state}) =>{
@@ -21,15 +22,20 @@ const NewArticle =  ({data, ...state}) =>{
         }
     }, [dataBinding]);
 
-    const [hasSubmited, setHasSubmited] = useState(false);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [location, setLocation] = useState('');
+    const [published, setPublished] = useState(false);
+    const [hasSubmited, setHasSubmited] = useState(false);
+    const [description, setDescription] = useState('');
+
 
     if(article !== undefined && title.length === 0 && content.length === 0 && location.length === 0){
         setTitle(article.title);
         setContent(article.content);
         setLocation(article.location);
+        setPublished(article.published);
+        setDescription(article.description ? article.description : '');
     }
 
     //error managment
@@ -48,10 +54,17 @@ const NewArticle =  ({data, ...state}) =>{
         const data = editor.getData();
         setContent(data);
     }
+    const handleDescriptionChange = (e, editor) => {
+        const data = editor.getData();
+        setDescription(data);
+    }
     const handleLocationChange = (e) => {
         let locationValue = e.target.value;
         fieldVerify(locationValue, errorLocation, setErrorLocation, "Veuillez renseigner le lieu");
         setLocation(locationValue);
+    }
+    const handlePublishedChange = () => {
+        setPublished(!published);
     }
     const Submit = () => {
         setHasSubmited(true);
@@ -61,9 +74,9 @@ const NewArticle =  ({data, ...state}) =>{
         if(title.length === 0 || content.length === 0 || location.length === 0) return;
 
         if(article === undefined){
-            state.actions.addArticle(title, content, location, token);
+            state.actions.addArticle(title, description, content, location, published, token);
         }else{
-            state.actions.updateArticle(id, title, content, location, token);
+            state.actions.updateArticle(id, title, description, content, location, published, token);
         }
         history.push("/admin/article/list");
     }
@@ -89,6 +102,26 @@ const NewArticle =  ({data, ...state}) =>{
                 handleValue={handleTitleChange}
                 value={title}
                 errorMessage={errorTitle} />
+
+                <div className="form-group">
+                    <label className="form-label">Description</label>
+                    <CKEditor
+                        editor={ ClassicEditor }
+                        config={
+                            {
+                                language:'fr',
+                                ckfinder:{
+                                    uploadUrl: uploadUrl
+                                }
+                            } 
+                        }
+                        data={description}
+                        onReady={ editor => {} }
+                        onChange={ ( event, editor ) => handleDescriptionChange(event, editor)}
+                        onBlur={ ( event, editor ) => {} }
+                        onFocus={ ( event, editor ) => {} }
+                    />
+                </div>
 
                 <div className="form-group">
                     <label className="form-label">Contenu</label>
@@ -117,6 +150,8 @@ const NewArticle =  ({data, ...state}) =>{
                 handleValue={handleLocationChange}
                 value={location}
                 errorMessage={errorLocation} />
+
+                <Switcher label="Publier" value={published} handleChange={handlePublishedChange} />
 
                 <button className="btn btn-success" onClick={() => Submit()}>Valider</button>
             </div>

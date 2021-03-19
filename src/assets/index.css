@@ -303,13 +303,12 @@ input, select, textarea {
 
 /* Row */
 
-	#wrapper #wrapper .row {
+	#wrapper .row {
 		display: flex;
 		flex-wrap: wrap;
 		box-sizing: border-box;
 		align-items: stretch;
 	}
-
 		#wrapper .row > * {
 			box-sizing: border-box;
 		}
@@ -2550,6 +2549,19 @@ input, select, textarea {
 				}
 
 /* Posts */
+#wrapper .article_description figure{
+	overflow: hidden;
+}
+#wrapper .article_description img{
+	transition: transform 0.2s ease-out;
+}
+#wrapper .article_description img:hover{
+	-moz-transform: scale(1.05);
+		-webkit-transform: scale(1.05);
+		-ms-transform: scale(1.05);
+		transform: scale(1.05);
+		transition: transform 0.2s ease-out;
+}
 
 	ul.posts {
 		list-style: none;

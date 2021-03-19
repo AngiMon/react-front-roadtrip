@@ -25,8 +25,13 @@ function Article({article}){
                     </a>
                 </div>
             </header>
+            {article.description &&
+                <div className="ck-content article_description" dangerouslySetInnerHTML={{__html: article.description}}></div>
+            }
             {/* <a href="single.html" className="image featured"><img src="images/pic03.jpg" alt="" /></a> */}
-            <div className="ck-content" dangerouslySetInnerHTML={{__html: article.content}}></div>
+            { !article.description &&
+                <div className="ck-content" dangerouslySetInnerHTML={{__html: article.content}}></div>
+            }
             <footer>
                 <ul className="actions">
                     <li><a href="single.html" className="button large">Continue Reading</a></li>

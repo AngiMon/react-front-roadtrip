@@ -5,6 +5,9 @@
     left: 0; 
     width: 25%; 
     height: fit-content;
+    background-color: #e5e0ec;
+    padding: 32px;
+    box-shadow: 0px 0px 5px 1px;
 }
 #login-page label{
     margin: 10px;

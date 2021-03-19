@@ -145,7 +145,7 @@ export const requestAddArticleError = (status) => ({
     loading: false,
 })
 /* thunk */
-export const addArticle = (title, content, location, token) => {
+export const addArticle = (title, description, content, location, published, token) => {
     return async (dispatch) => {
 		//dispatch(requestAddArticleLoad())
 
@@ -155,9 +155,10 @@ export const addArticle = (title, content, location, token) => {
                 headers: {'Authorization': token, 'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
 					title: title,
+					description: description,
 					content: content,
 					location: location,
-					published: true
+					published: published
 				})
             }
 		)
@@ -196,7 +197,7 @@ export const requestUpdateArticleError = (status) => ({
     loading: false,
 })
 /* thunk */
-export const updateArticle = (id, title, content, location, token) => {
+export const updateArticle = (id, title, description, content, location, published, token) => {
     return async (dispatch) => {
 		//dispatch(requestAddArticleLoad())
 
@@ -206,9 +207,10 @@ export const updateArticle = (id, title, content, location, token) => {
                 headers: {'Authorization': token, 'Content-Type': 'application/json', 'Accept': 'application/json'},
 				body: JSON.stringify({
 					title: title,
+					description: description,
 					content: content,
 					location: location,
-					published: true
+					published: published
 				})
             }
 		)

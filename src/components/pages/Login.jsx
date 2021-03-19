@@ -35,14 +35,18 @@ const Login = () => {
         }
     }
     return(
-        <Form id="login-page" onKeyPress={(event) => event.key === 'Enter' ? Submit() : false }>
-            <TextInput label="Adresse email" handleValue={handleValue} param="email" placeholder="Saisissez votre email" />
-            <TextInput label="Mot de passe"  handleValue={handleValue} param="password" placeholder="Saisissez votre mot de passe" type="password" />
+        <div id="login-page">
+            <h1 className="text-center h1">Connexion</h1>
+            <Form onKeyPress={(event) => event.key === 'Enter' ? Submit() : false }>
+                <TextInput label="Adresse email" handleValue={handleValue} param="email" placeholder="Saisissez votre email" />
+                <TextInput label="Mot de passe"  handleValue={handleValue} param="password" placeholder="Saisissez votre mot de passe" type="password" />
 
-            <Button variant="primary" type="button" onClick={Submit}>
-                Valider
-            </Button>
-        </Form>
+                <Button variant="primary" type="button" onClick={Submit}>
+                    Valider
+                </Button>
+            </Form>
+        </div>
+        
     )
 }
 

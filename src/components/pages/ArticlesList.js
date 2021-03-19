@@ -4,9 +4,11 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import useCookie from '../../hooks/useCookie';
 import { useHistory } from "react-router-dom";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 
 const ArticlesList = ({articles}) => {
+    const { SearchBar } = Search;
     const columns = [{
         dataField: 'createdAt',
         text: "Date"
@@ -28,6 +30,10 @@ const ArticlesList = ({articles}) => {
         text: "Auteur"
     },
     {
+        dataField: 'state',
+        text: "En ligne"
+    },
+    {
         dataField: 'actions',
         text: "Actions"
     }];
@@ -36,12 +42,32 @@ const ArticlesList = ({articles}) => {
         <div className="card">
             <h5 className="h5 card-header">Liste des articles</h5>
             <div className="card-body">
-                <BootstrapTable 
-                hover={true}
-                keyField='id' 
-                data={ articles } 
-                columns={ columns } 
-                pagination={paginationFactory()} />
+                <ToolkitProvider
+                keyField="id"
+                data={ articles }
+                columns={ columns }
+                search={ {
+                    placeholder: "Rechercher"
+                  } }
+                >
+                    {
+                        props => (
+                        <div>
+                            <div className="row">
+                                <i className="fas fa-search fa-flip-horizontal ml-3 mt-2 mr-1"></i>
+                                <SearchBar 
+                                placeholder="Rechercher" 
+                                { ...props.searchProps } />
+                            </div>
+                            <BootstrapTable 
+                            { ...props.baseProps }
+                            hover={true}
+                            pagination={paginationFactory()} />
+                        </div>
+                        )
+                    }
+                </ToolkitProvider>
+                
             </div>
         </div>
     )
@@ -73,6 +99,8 @@ const ArticlesListComponent = ({ data, ...state}) => {
             date = date.toLocaleDateString('fr-FR', options);
             article.createdAt = date;
             article.text = <p dangerouslySetInnerHTML={{__html: article.content.slice(0, 100)}}></p>;
+            article.state = article.published   ? <i className="fas fa-dot-circle text-success"></i> 
+                                                : <i className="fas fa-dot-circle text-danger"></i>
             article.actions = <div>
                     <a role="button" className="btn btn-warning mr-2" href={"/admin/article/" + id}><i className="far fa-edit fa-lg" style={{color:'white'}}></i></a>
                     <button 

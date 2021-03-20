@@ -185,7 +185,7 @@ export const requestAddArticleError = (status) => ({
 })
 /* thunk */
 export const addArticle = (title, description, content, location, published, token) => {
-    return async (dispatch) => {
+	return async (dispatch) => {
 		//dispatch(requestAddArticleLoad())
 
 		return fetch(

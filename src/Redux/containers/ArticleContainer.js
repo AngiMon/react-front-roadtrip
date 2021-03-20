@@ -13,6 +13,11 @@ const mapStateToProps = (state) => {
 }
 
 export const NewArticleContainer = connect(
+	() => { return { data:[] }},
+	mapDispatchToProps,
+)(NewArticle)
+
+export const UpdateArticleContainer = connect(
 	mapStateToProps,
 	mapDispatchToProps,
 )(NewArticle)

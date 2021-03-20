@@ -13,7 +13,6 @@ const NewArticle =  ({data, ...state}) =>{
     const { id } = useParams();
     const token = useCookie('access_token_admin')[0];
     dataBinding.current = {state: state, id: id, token: token.value};
-
     const {article} = data;
 
     useEffect(() => {
@@ -73,9 +72,9 @@ const NewArticle =  ({data, ...state}) =>{
         if(title.length === 0 || content.length === 0 || location.length === 0) return;
 
         if(article === undefined){
-            state.actions.addArticle(title, description, content, location, published, token);
+            state.actions.addArticle(title, description, content, location, published, token.value);
         }else{
-            state.actions.updateArticle(id, title, description, content, location, published, token);
+            state.actions.updateArticle(id, title, description, content, location, published, token.value);
         }
         history.push("/admin/article/list");
     }

@@ -11,7 +11,7 @@ import Home from './components/pages/Home';
 import Dashboard from './components/pages/Dashboard';
 import { requestHeader } from "./Redux/actions/requestHeader";
 import Main from './components/base/Main';
-import { NewArticleContainer, OneArticleContainer } from './Redux/containers/ArticleContainer';
+import { UpdateArticleContainer, NewArticleContainer, OneArticleContainer } from './Redux/containers/ArticleContainer';
 import ArticlesListContainer from './Redux/containers/ArticlesList';
 
 function App() {
@@ -53,8 +53,8 @@ function App() {
                 <Route path="/admin/article">
                   <Switch>
                     <Route path="/admin/article/list" component={ArticlesListContainer} />
-                    <Route path="/admin/article/new" component={NewArticleContainer} />
-                    <Route path="/admin/article/:id" component={NewArticleContainer} />
+                    <Route exact path="/admin/article/new" component={NewArticleContainer} />
+                    <Route path="/admin/article/:id" component={UpdateArticleContainer} />
                   </Switch>
                 </Route>
               </Switch>

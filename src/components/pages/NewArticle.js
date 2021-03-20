@@ -64,7 +64,7 @@ const NewArticle =  ({data, ...state}) =>{
     const handlePublishedChange = () => {
         setPublished(!published);
     }
-    const Submit = () => {
+    const Submit = async () => {
         setHasSubmited(true);
         fieldVerify(title, errorTitle, setErrorTitle, "Veuillez donner un titre à votre article", true);
         fieldVerify(location, errorLocation, setErrorLocation, "Veuillez renseigner le lieu", true);
@@ -72,9 +72,9 @@ const NewArticle =  ({data, ...state}) =>{
         if(title.length === 0 || content.length === 0 || location.length === 0) return;
 
         if(article === undefined){
-            state.actions.addArticle(title, description, content, location, published, token.value);
+            await state.actions.addArticle(title, description, content, location, published, token.value);
         }else{
-            state.actions.updateArticle(id, title, description, content, location, published, token.value);
+            await state.actions.updateArticle(id, title, description, content, location, published, token.value);
         }
         history.push("/admin/article/list");
     }

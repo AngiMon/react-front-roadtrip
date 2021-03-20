@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
-function Article({article, mode=false}){
+function Article({article, mode=false, children}){
     var date = new Date(article.createdAt);
     var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     date = date.toLocaleDateString('fr-FR', options);
@@ -43,6 +43,7 @@ function Article({article, mode=false}){
                         </li>
                     </ul>
                 }
+                {children}
                 {/* <ul className="stats">
                     <li><a href="/">General</a></li>
                     <li><a href="/" className="icon solid fa-heart">28</a></li>
@@ -62,8 +63,6 @@ export const ArticleComponent = ({data, ...state}) => {
 
     const {articles, status} = data;
 
-    console.log(data);
-    
     return (
         <div>
             { status === 200 &&
@@ -88,7 +87,9 @@ export const OneArticleComponent = ({data, ...state}) => {
     return (
         <div>
             { article !== undefined &&
-                <Article article={article} mode="see" />
+                <Article article={article} mode="see">
+                    <Link className="button large" to="/" >Retour</Link>
+                </Article>
             }
         </div>
     )

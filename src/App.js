@@ -13,6 +13,7 @@ import { requestHeader } from "./Redux/actions/requestHeader";
 import Main from './components/base/Main';
 import { UpdateArticleContainer, NewArticleContainer, OneArticleContainer } from './Redux/containers/ArticleContainer';
 import ArticlesListContainer from './Redux/containers/ArticlesList';
+import NoMatch from './components/pages/errors/NoMatch';
 
 function App() {
   //external files loading
@@ -62,14 +63,20 @@ function App() {
           </Route>
           {/* blog */}
           <Route path="/">
-            <Home>
-              <Route exact path="/">
-                  <Main />
-              </Route>
-              <Route path="/article/:id">
-                <OneArticleContainer />
-              </Route>
+          <Home>
+
+            <Switch>
+                <Route exact path="/">
+                    <Main />
+                </Route>
+                <Route exact path="/article/:id">
+                  <OneArticleContainer />
+                </Route>
+                <Route component={NoMatch} />
+
+            </Switch>
             </Home>
+
           </Route>
         </Switch>
     </Router>

@@ -12,13 +12,13 @@ const NewArticle =  ({data, ...state}) =>{
     const dataBinding = useRef();
     const { id } = useParams();
     const token = useCookie('access_token_admin')[0];
-    dataBinding.current = {state: state, id: id, token: token};
+    dataBinding.current = {state: state, id: id, token: token.value};
 
     const {article} = data;
 
     useEffect(() => {
         if(dataBinding.current.id !== undefined){
-            dataBinding.current.state.actions.fetchArticle(dataBinding.current.token, dataBinding.current.id);
+            dataBinding.current.state.actions.fetchArticleAsAdmin(dataBinding.current.token, dataBinding.current.id);
         }
     }, [dataBinding]);
 
@@ -28,7 +28,6 @@ const NewArticle =  ({data, ...state}) =>{
     const [published, setPublished] = useState(false);
     const [hasSubmited, setHasSubmited] = useState(false);
     const [description, setDescription] = useState('');
-
 
     if(article !== undefined && title.length === 0 && content.length === 0 && location.length === 0){
         setTitle(article.title);

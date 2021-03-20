@@ -1,13 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from "react-router-dom";
 
 function Header(){
   const { t } = useTranslation();
     return (
       <header id="header">
         <h1>
-          <a href="/">
+          <Link to="/">
             { t("app").title } 
-          </a>
+          </Link>
         </h1>
         <nav className="links">
           <ul>

@@ -20,7 +20,7 @@ export const requestArticlesError = (status) => ({
 /* thunk */
 export const fetchArticles = () => {
     return async (dispatch) => {
-		dispatch(requestArticlesLoad())
+		//dispatch(requestArticlesLoad())
         
         let res = await requestHeader();
 		if(!res) return; 
@@ -42,7 +42,7 @@ export const fetchArticles = () => {
 
 			return response.json()
 		})
-		.then((articles) => {
+		.then(({articles}) => {
 			dispatch(requestArticlesSuccess(articles))
 		})
 		.catch((error) => {
@@ -82,7 +82,7 @@ export const fetchArticlesAsAdmin = (token) => {
 		})
 	}
 }
-//GET ONE
+//GET ONE AS ANONYMOUS
 export const requestArticleLoad = () => ({
     type: types.REQUEST_ARTICLE_LOAD,
     loading: true
@@ -98,7 +98,46 @@ export const requestArticleError = (status) => ({
 	status: status,
     loading: false,
 })
-export const fetchArticle = (token, id) => {
+/* thunk */
+export const fetchArticle = (id) => {
+	return async (dispatch) => {
+		//dispatch(requestArticlesLoad())
+		//TODO mangement anonymous token
+		let res = await requestHeader();
+		if(!res) return; 
+		let data =  await res.json();
+		if(!data) return; 
+		const {token} = data
+
+		return fetch(
+			`${process.env.REACT_APP_API_URI}/post/${id}`,
+            {
+                method: 'GET',
+                headers: {'Authorization': token}
+            }
+		)
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('Error - 404 Not Found')
+			}
+
+			return response.json()
+		})
+		.then(({status, article}) => {
+			if(status === 409) {
+				dispatch(requestArticlesError(status))
+			}else{
+				dispatch(requestArticleSuccess(article))
+			}
+		})
+		.catch((error) => {
+			console.log(error)
+			dispatch(requestArticlesError(error))
+		})
+	}
+}
+//GET ONE AS ADMIN
+export const fetchArticleAsAdmin = (token, id) => {
 	return async (dispatch) => {
 		//dispatch(requestArticlesLoad())
 

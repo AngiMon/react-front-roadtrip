@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from "react-router-dom";
 
 const CollapseLink = ({category, icon,  links, count, handleClick=false}) => {
     return (
@@ -27,17 +28,17 @@ const elementList = (key, link, clickable=false) =>{
     if(clickable){
         return (
             <li onClick={(e) => clickable(e, link.name)} key={key}>
-                <a href={link.href}>
+                <NavLink to={link.href}>
                     {link.name}
-                </a>
+                </NavLink>
             </li>
         )
     }else{
         return (
             <li key={key}>
-                <a href={link.href}>
+                <NavLink to={link.href}>
                     {link.name}
-                </a>
+                </NavLink>
             </li>
         )
     }

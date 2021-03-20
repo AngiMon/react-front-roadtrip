@@ -1,5 +1,6 @@
 import React from 'react';
-import CollapseLink from './tools/CollapseLink'
+import CollapseLink from './tools/CollapseLink';
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     const articleLinks = [
@@ -10,10 +11,10 @@ const Sidebar = () => {
     return (
         <div className="col-2 px-3 pt-3" id="roadtrip_dashboard__sidebar">
             <h2 className="mt-3">
-                <a href="/admin/dashboard" >
+                <Link to="/admin/dashboard" >
                     <i className="fas fa-tachometer-alt mr-2" style={{color:"white"}}></i>
                     Tableau de bord
-                </a>
+                </Link>
             </h2>
             <hr />
             <CollapseLink 

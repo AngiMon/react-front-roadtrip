@@ -9,8 +9,10 @@ import {
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import Dashboard from './components/pages/Dashboard';
-import NoMatch from './components/pages/errors/NoMatch';
 import { requestHeader } from "./Redux/actions/requestHeader";
+import Main from './components/base/Main';
+import { NewArticleContainer, OneArticleContainer } from './Redux/containers/ArticleContainer';
+import ArticlesListContainer from './Redux/containers/ArticlesList';
 
 function App() {
   //external files loading
@@ -21,9 +23,12 @@ function App() {
   useScript('/lib/main.js');
 
   // eslint-disable-next-line
-  const [cookie, updateCookie] = useCookie("access_token_anonymous");
-  let hasTokenAnonymous = useCookie("access_token_anonymous")[0] !== undefined;
-  const loggedIn = useCookie("access_token_admin")[0] !== undefined;
+  const [cookieAnonymous, updateCookie] = useCookie("access_token_anonymous");
+  const [cookieAdmin] = useCookie("access_token_admin");
+
+  let hasTokenAnonymous = cookieAnonymous.value !== undefined;
+  
+  const loggedIn = cookieAdmin.value !== undefined;
 
   const retrieveTokenAnonymous = async () =>{
     const response = await requestHeader();
@@ -37,17 +42,34 @@ function App() {
   return (
     <Router>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/login">
+          {/* authentication */}
+          <Route path="/login">
             { loggedIn ? <Redirect to="admin/dashboard" /> : <Login />}
           </Route>
+          {/* dashboard */}
           <Route path="/admin/">
-            <Dashboard />
+            <Dashboard>
+              <Switch>
+                <Route path="/admin/article">
+                  <Switch>
+                    <Route path="/admin/article/list" component={ArticlesListContainer} />
+                    <Route path="/admin/article/new" component={NewArticleContainer} />
+                    <Route path="/admin/article/:id" component={NewArticleContainer} />
+                  </Switch>
+                </Route>
+              </Switch>
+            </Dashboard>
           </Route>
-          <Route path="*">
-            <NoMatch />
+          {/* blog */}
+          <Route path="/">
+            <Home>
+              <Route exact path="/">
+                  <Main />
+              </Route>
+              <Route path="/article/:id">
+                <OneArticleContainer />
+              </Route>
+            </Home>
           </Route>
         </Switch>
     </Router>

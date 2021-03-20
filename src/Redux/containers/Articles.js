@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ArticleComponent from '../../components/Article'
+import {ArticleComponent} from '../../components/Article'
 import { getArticles } from '../selectors/articles'
 
 import { bindActionCreators } from 'redux'
@@ -14,9 +14,7 @@ const mapStateToProps = (state) => {
 	return {data: getArticles(state)}
 }
 
-const Articles = connect(
+export const ArticlesContainer = connect(
 	mapStateToProps,
 	mapDispatchToProps,
 )(ArticleComponent)
-
-export default Articles;

@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
-function Article({article}){
+function Article({article, mode=false}){
     var date = new Date(article.createdAt);
     var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
     date = date.toLocaleDateString('fr-FR', options);
 
     return (
@@ -17,25 +18,31 @@ function Article({article}){
                     <time className="published" dateTime={article.createdAt}>
                         {date}
                     </time>
-                    <a href="/" className="author">
+                    <Link to="/" className="author">
                         <span className="name">
                             {article.User.username}
                         </span>
                         <img src="images/logo_angi2.JPG" alt="" />
-                    </a>
+                    </Link>
                 </div>
             </header>
             {article.description &&
                 <div className="ck-content article_description" dangerouslySetInnerHTML={{__html: article.description}}></div>
             }
             {/* <a href="single.html" className="image featured"><img src="images/pic03.jpg" alt="" /></a> */}
-            { !article.description &&
+            { (!article.description || mode === 'see') &&
                 <div className="ck-content" dangerouslySetInnerHTML={{__html: article.content}}></div>
             }
             <footer>
-                <ul className="actions">
-                    <li><a href="single.html" className="button large">Continue Reading</a></li>
-                </ul>
+                {!mode &&
+                    <ul className="actions">
+                        <li>
+                            <Link to={`/article/${article.id}`} className="button large">
+                                Lire cet article
+                            </Link>
+                        </li>
+                    </ul>
+                }
                 {/* <ul className="stats">
                     <li><a href="/">General</a></li>
                     <li><a href="/" className="icon solid fa-heart">28</a></li>
@@ -45,7 +52,7 @@ function Article({article}){
         </article>
     )
 }
-const ArticleComponent = ({data, ...state}) => {
+export const ArticleComponent = ({data, ...state}) => {
     const store = useRef();
     store.current = state;
 
@@ -54,6 +61,8 @@ const ArticleComponent = ({data, ...state}) => {
     }, [store]);
 
     const {articles, status} = data;
+
+    console.log(data);
     
     return (
         <div>
@@ -65,4 +74,22 @@ const ArticleComponent = ({data, ...state}) => {
     
 }
 
-export default ArticleComponent;
+export const OneArticleComponent = ({data, ...state}) => {
+    const dataBinding = useRef();
+    const { id } = useParams();
+    dataBinding.current = {state: state, id: id};
+
+    const {article} = data;
+
+    useEffect(() => {
+        dataBinding.current.state.actions.fetchArticle(dataBinding.current.id)
+    }, [dataBinding]);
+
+    return (
+        <div>
+            { article !== undefined &&
+                <Article article={article} mode="see" />
+            }
+        </div>
+    )
+}

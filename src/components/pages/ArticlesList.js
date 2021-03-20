@@ -5,7 +5,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import useCookie from '../../hooks/useCookie';
 import { useHistory } from "react-router-dom";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-
+import {Link} from "react-router-dom";
 
 const ArticlesList = ({articles}) => {
     const { SearchBar } = Search;
@@ -23,7 +23,7 @@ const ArticlesList = ({articles}) => {
     },
     {
         dataField: 'text',
-        text: "Contenu"
+        text: "Description"
     },
     {
         dataField: 'User.username',
@@ -75,7 +75,8 @@ const ArticlesList = ({articles}) => {
 
 const ArticlesListComponent = ({ data, ...state}) => {
     const history = useHistory();
-    const token = useCookie('access_token_admin')[0];
+    const [cookie] = useCookie("access_token_admin");
+    const token = cookie.value;
     const dataBinding = useRef();
     dataBinding.current = {state: state, token: token};
     useEffect(() => {
@@ -89,20 +90,25 @@ const ArticlesListComponent = ({ data, ...state}) => {
 
     const {status, articles} = data
 
-    if(status === 409) history.push('/login');
+    if(status === 409){
+        cookie.remove("access_token_admin")
+        history.push('/login');
+    }
 
     if(articles !== undefined){
         articles.map(article =>{
             var date = new Date(article.createdAt);
             var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             var id = article.id
+            var description = article.description ? article.description : 'Vide';
             date = date.toLocaleDateString('fr-FR', options);
             article.createdAt = date;
-            article.text = <p dangerouslySetInnerHTML={{__html: article.content.slice(0, 100)}}></p>;
+            
+            article.text = <p dangerouslySetInnerHTML={{__html: description.slice(0, 150)}}></p>;
             article.state = article.published   ? <i className="fas fa-dot-circle text-success"></i> 
                                                 : <i className="fas fa-dot-circle text-danger"></i>
             article.actions = <div>
-                    <a role="button" className="btn btn-warning mr-2" href={"/admin/article/" + id}><i className="far fa-edit fa-lg" style={{color:'white'}}></i></a>
+                    <Link role="button" className="btn btn-warning mr-2" to={"/admin/article/" + id}><i className="far fa-edit fa-lg" style={{color:'white'}}></i></Link>
                     <button 
                     className="btn btn-danger" 
                     onClick={ () => handleRemove(id) }

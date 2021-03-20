@@ -1,23 +1,13 @@
 import React from 'react'
 import useCookie from '../../hooks/useCookie'
-import { useHistory } from "react-router-dom";
 import "../../assets/dashboard.css";
 import Sidebar from '../admin/Sidebar';
-import Home from '../pages/Home';
-import Login from '../pages/Login';
-import ArticlesListContainer from '../../Redux/containers/ArticlesList';
-import NewArticleContainer from '../../Redux/containers/newArticleContainer'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-  } from "react-router-dom";
+import {Link} from "react-router-dom"
 
-const Dashboard = () => {
-    // eslint-disable-next-line
-    const [cookie, updateCookie] = useCookie("access_token_admin");
+const Dashboard = (props) => {
+    const [cookie] = useCookie("access_token_admin");
     
-    if(!cookie) return <Forbidden />
+    if(!cookie.value) return <Forbidden />
     
     return (
         <div id="roadtrip_dashboard" style={{ margin: 0}}>
@@ -32,26 +22,7 @@ const Dashboard = () => {
             <div className="row m-0">
                 <Sidebar />
                 <div className="roadtrip_dashboard__content col-10 py-3 px-3">
-                    <Router>
-                        <Switch>
-                            <Route exact path="/">
-                                <Home />
-                            </Route>
-                            <Route exact path="/login">
-                                <p className="alert-danger text-center"> Votre session a expiré </p>
-                                <Login />
-                            </Route>
-                            <Route path="/admin/article/list">
-                                <ArticlesListContainer />
-                            </Route>
-                            <Route path="/admin/article/new">
-                                <NewArticleContainer />
-                            </Route>
-                            <Route path="/admin/article/:id">
-                                <NewArticleContainer />
-                            </Route>
-                        </Switch>
-                    </Router>
+                    {props.children}
                 </div>
             </div>
         </div>
@@ -59,8 +30,6 @@ const Dashboard = () => {
 }
 
 const Forbidden = () => {
-    const history = useHistory();
-
     return (
         <div className="text-center">
             <h1 className="h1">
@@ -70,9 +39,9 @@ const Forbidden = () => {
                 No token, no access
             </p>
 
-            <button className="btn btn-primary" onClick={() => history.push('/login')}> 
+            <Link className="btn btn-primary" to="/login"> 
                 Connexion 
-            </button>
+            </Link>
             
         </div>
     )

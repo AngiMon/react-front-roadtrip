@@ -1,7 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import {
-    Link
-  } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function SideMenu (){
     const { t } = useTranslation();

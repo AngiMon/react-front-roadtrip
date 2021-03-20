@@ -17,6 +17,11 @@ const setItem = (key, value, numberOfDays) => {
         document.cookie = `${key}=${value};     expires=${now.toUTCString()}; path=/`;
     };
 
+const removeItem = key => {
+    console.log(`remove cookie: ${key}`);
+    document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}
+
 /**
 * Custom hook to retrieve and store cookies for our application.
 * @param {String} key The key to store our data to
@@ -29,6 +34,12 @@ const useCookie = (key, defaultValue) => {
         setCookie(value);
         setItem(key, value, numberOfDays);
     };
-    return [cookie, updateCookie];
+    const removeCookie = (key) => {
+        removeItem(key);
+    }
+
+    let cookieObject = {value:cookie, remove: removeCookie};
+
+    return [cookieObject, updateCookie];
 };
 export default useCookie;

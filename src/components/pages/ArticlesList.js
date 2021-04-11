@@ -79,6 +79,7 @@ const ArticlesListComponent = ({ data, ...state}) => {
     const token = cookie.value;
     const dataBinding = useRef();
     dataBinding.current = {state: state, token: token};
+    
     useEffect(() => {
         dataBinding.current.state.actions.fetchArticlesAsAdmin(dataBinding.current.token);
     }, [dataBinding]);

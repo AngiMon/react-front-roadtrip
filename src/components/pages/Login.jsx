@@ -18,6 +18,7 @@ const Login = () => {
         const payload = await response.json();
         const {token} = payload;
         updateCookie(token);
+        console.log(token);
         history.push('/admin/dashboard')
     }
 

@@ -180,7 +180,7 @@ input, select, textarea {
 			transition: color 0.2s ease;
 		}
 
-		a:hover {
+		a:hover, button:hover {
 			border-bottom-color: transparent;
 			color: #2ebaae !important;
 		}
@@ -1852,11 +1852,14 @@ input, select, textarea {
 		}
 
 /* Button */
+	#wrapper button, #wrapper .button{
+		color: #3c3b3b;
+		border-color:  #3c3b3b;
+	}
 
 	#wrapper input[type="submit"],
 	#wrapper input[type="reset"],
 	#wrapper input[type="button"],
-	#wrapper button,
 	.button {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -1869,7 +1872,7 @@ input, select, textarea {
 		background-color: transparent;
 		border: 0;
 		box-shadow: inset 0 0 0 1px rgba(160, 160, 160, 0.3);
-		color: #3c3b3b !important;
+		color: #3c3b3b;
 		cursor: pointer;
 		display: inline-block;
 		font-family: "Raleway", Helvetica, sans-serif;
